@@ -1,0 +1,22 @@
+{
+  "name": "uhaves",
+  "version": "1.0.0",
+  "description": "Allows users to place AVES delivery requests and monitor delivery status.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ME-481-AVES/website.git"
+  },
+  "author": "Rob Godfrey",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ME-481-AVES/website/issues"
+  },
+  "homepage": "https://github.com/ME-481-AVES/website#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
