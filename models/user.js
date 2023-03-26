@@ -5,6 +5,10 @@ let userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  googleId : {
+    type: String,
+    required: true
+  },
   orders: {
     type: String
   }
