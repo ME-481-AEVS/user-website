@@ -14,18 +14,23 @@ module.exports = (passport) => {
     // find if user exists exists
     User.findOne({ email: profile.emails[0].value })
         .then ((user) => {
-          if (user){
+          if (user) {
             // user exists
             return done(null, user);
           } else {
-            User({
-              email: profile.emails[0].value,
-              displayName: profile.displayName,
-              displayPhoto: profile.photos[0].value
-            }).save()
-                .then((err, user) => {
-                  return done(null, user);
-                });
+            const googleEmail = profile.emails[0].value;
+            if (googleEmail.substring(googleEmail.length - 11) == '@hawaii.edu') {
+              User({
+                email: googleEmail,
+                displayName: profile.displayName,
+                displayPhoto: profile.photos[0].value
+              }).save()
+                  .then((err, user) => {
+                    return done(null, user);
+                  });
+            } else {
+              // TODO handle no hawaii email
+            }
           }
         })
         .catch (err => console.log(err));

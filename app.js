@@ -46,7 +46,7 @@ app.get('*', (req, res, next) => {
 
 // home route
 app.get('/', (req, res) => {
-  res.render('index', { title: 'UH AEVS Delivery System', header: null });
+  res.render('index', { title: 'UH AEVS Delivery System' });
 });
 
 let user = require('./routes/user');
