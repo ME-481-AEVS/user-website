@@ -20,6 +20,8 @@ let Order = require('./models/order');  // bring in order model
 const app = express();  // init app
 app.use(express.static(__dirname + '/views'));  // load views
 app.use(express.static(__dirname + '/public'));  // define public folder
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
 app.set('view engine', 'ejs');  // set view engine to ejs
 
 // body parser middleware
