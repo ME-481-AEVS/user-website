@@ -1,21 +1,19 @@
 const express = require('express');
 const passport = require('passport');
-
 const router = express.Router();
-
 const User = require('../models/user');
 
-// home route
-router.get('/', (req, res) => {
-  res.send('ayooo');
+router.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
+router.get('/login/callback', passport.authenticate('google', { failureRedirect: '/user/login_failed' }), (req, res) => {
+  res.redirect('/');
+});
+router.get('/login_failed', (req, res) => {
+  res.render('login_failed');
 });
 
-// login route
-router.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// login callback
-router.get('/login/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('/');
+// user homepage
+router.get('/home', (req, res) => {
+  res.render('home');
 });
 
 // logout

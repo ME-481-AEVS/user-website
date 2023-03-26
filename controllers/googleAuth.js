@@ -1,5 +1,6 @@
 let GoogleStrategy = require('passport-google-oauth20').Strategy;
-const user = require('../models/user');
+const User = require('../models/user');
+const config = require('../config/database');
 const clientID = require('../config/googleData').clientId;
 const clientSecret = require('../config/googleData').clientSecret;
 
@@ -7,36 +8,39 @@ module.exports = (passport) => {
   passport.use(new GoogleStrategy({
     clientID: clientID,
     clientSecret: clientSecret,
-    callbackURL: 'http://localhost:3000/login/callback'
+    callbackURL: 'http://localhost:3000/user/login/callback'
   }, (accessToken, refreshToken, profile, done) => {
-    console.log(profile);
 
     // find if user exists exists
-    user.findOne({ email: profile.emails[0].value })
-        .then((data) => {
-          if (data){
+    User.findOne({ email: profile.emails[0].value })
+        .then((user) => {
+          if (user){
             // user exists
-            return done(null, data);
+            return done(null, user);
           } else {
-            user({
+            User({
               email: profile.emails[0].value,
-              googleId: profile.id
-            }).save((err, data) => {
-              return done(null, data);
-            });
+              displayName: profile.displayName,
+              displayPhoto: profile.photos[0].value
+            }).save()
+                .then((err, data) => {
+                  return done(null, data);
+                });
           }
         });
-  }
-
-  ));
+  }));
 
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
 
   passport.deserializeUser((id, done) => {
-    user.findById(id, (err, user) => {
-      done(err, user);
-    });
+    User.findById(id)
+        .then((err, user) => {
+          done(err, user);
+        })
+        .catch(err => {
+          console.log(err);
+        });
   });
 }

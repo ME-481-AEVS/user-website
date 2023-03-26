@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let robotSchema = mongoose.Schema({
+let RobotSchema = mongoose.Schema({
   status: {
     /* -1: error
         0: off
@@ -14,3 +14,5 @@ let robotSchema = mongoose.Schema({
     required: true
   }
 });
+
+module.exports = mongoose.model('Robot', RobotSchema);

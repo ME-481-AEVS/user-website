@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let orderSchema = mongoose.Schema({
+let OrderSchema = mongoose.Schema({
   status: {
     type: Number,  // 1 = scheduled, 2 = in-progress, 3 = completed, 0 = cancelled, -1 = error (can modify later)
     required: true
@@ -34,3 +34,5 @@ let orderSchema = mongoose.Schema({
     required: true
   }
 });
+
+module.exports = mongoose.model('Order', OrderSchema);
