@@ -16,8 +16,8 @@ router.get('/login_failed', (req, res) => {
 });
 
 // user homepage
-router.get('/home', (req, res) => {
-  res.render('home', { title: 'UH AEVS Delivery Service | Home', imgUrl: req.user.displayPhoto });
+router.get('/home', ensureAuthenticated, (req, res) => {
+  res.render('home', { title: 'UH AEVS Delivery Service | Home', profileImgUrl: req.user.displayPhoto });
 });
 
 // logout
@@ -31,5 +31,14 @@ router.get('/logout', (req, res) => {
     }
   });
 });
+
+// access control
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    res.redirect('/');
+  }
+}
 
 module.exports = router;
