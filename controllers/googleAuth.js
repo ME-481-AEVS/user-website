@@ -13,7 +13,7 @@ module.exports = (passport) => {
 
     // find if user exists exists
     User.findOne({ email: profile.emails[0].value })
-        .then((user) => {
+        .then ((user) => {
           if (user){
             // user exists
             return done(null, user);
@@ -23,11 +23,12 @@ module.exports = (passport) => {
               displayName: profile.displayName,
               displayPhoto: profile.photos[0].value
             }).save()
-                .then((err, data) => {
-                  return done(null, data);
+                .then((err, user) => {
+                  return done(null, user);
                 });
           }
-        });
+        })
+        .catch (err => console.log(err));
   }));
 
   passport.serializeUser((user, done) => {
@@ -36,7 +37,7 @@ module.exports = (passport) => {
 
   passport.deserializeUser((id, done) => {
     User.findById(id)
-        .then((err, user) => {
+        .then((user, err) => {
           done(err, user);
         })
         .catch(err => {

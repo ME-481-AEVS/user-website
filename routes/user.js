@@ -4,9 +4,13 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/login/callback', passport.authenticate('google', { failureRedirect: '/user/login_failed' }), (req, res) => {
-  res.redirect('/');
+router.get(
+    '/login/callback',
+    passport.authenticate('google', { failureRedirect: '/user/login_failed' }),
+    (req, res) => {
+  res.redirect('/user/home');
 });
+
 router.get('/login_failed', (req, res) => {
   res.render('login_failed');
 });
