@@ -1,18 +1,21 @@
 const express = require('express');
-
-// init app
 const app = express();
 
-// load views
-app.use(express.static(__dirname + '/views'));
+const port = process.env.PORT || 3000;
+
+app.use(express.static(__dirname + '/views'));  // load views
+
+app.set('view engine', 'ejs');
 
 // home route
 app.get('/', (req, res) => {
-  res.sendfile('index.html');
+  res.send('ayooo');
 });
 
+// google oauth
+app.get('/login', (req, res) => {
+  res.render('login');
+})
 
 // start server
-app.listen(3000, (req, res) => {
-  console.log('Server started on port 3000.');
-});
+app.listen(port, () => console.log(`Server started on port ${port}.`));
