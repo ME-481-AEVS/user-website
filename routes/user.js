@@ -12,12 +12,12 @@ router.get(
 });
 
 router.get('/login_failed', (req, res) => {
-  res.render('login_failed', { title: 'UH AEVS Delivery Service | Login Failure' });
+  res.render('login_failed', { title: ' | Login Failure' });
 });
 
 // user homepage
 router.get('/home', ensureAuthenticated, (req, res) => {
-  res.render('home', { title: 'UH AEVS Delivery Service | Home', profileImgUrl: req.user.displayPhoto });
+  res.render('home', { title: ' | Home', profileImgUrl: req.user.displayPhoto });
 });
 
 // logout

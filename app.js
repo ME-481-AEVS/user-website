@@ -20,8 +20,8 @@ let Order = require('./models/order');  // bring in order model
 const app = express();  // init app
 app.use(express.static(__dirname + '/views'));  // load views
 app.use(express.static(__dirname + '/public'));  // define public folder
-app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/'));
-app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use('/js', express.static(__dirname + '/js/'));
+app.use('/css', express.static(__dirname + '/css/'));
 app.set('view engine', 'ejs');  // set view engine to ejs
 
 // body parser middleware
@@ -48,12 +48,14 @@ app.get('*', (req, res, next) => {
 
 // home route
 app.get('/', (req, res) => {
-  res.render('index', { title: 'UH AEVS Delivery System' });
+  res.render('index', { title: null });
 });
 
 let user = require('./routes/user');
+let delivery = require('./routes/delivery');
 
 app.use('/user', user);
+app.use('/delivery', delivery);
 
 // 404 routes
 app.use(function(req, res, next) {
@@ -61,7 +63,7 @@ app.use(function(req, res, next) {
 
   // respond with html page
   if (req.accepts('html')) {
-    res.render('404', { title: 'UH AEVS Delivery System | Page Not Found' });
+    res.render('404', { title: ' | Page Not Found' });
     return;
   }
 

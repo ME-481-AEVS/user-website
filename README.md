@@ -1,2 +1,2 @@
 # website
-Website to allow users to place delivery requests and monitor delivery status.
+Website to allow users to schedule deliveries and monitor delivery status.

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ME-481-AEVS/website#readme",
   "dependencies": {
+    "appointment-picker": "^2.0.0",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.2.3",
     "ejs": "^3.1.9",
@@ -25,6 +26,7 @@
     "jquery": "^3.6.4",
     "mongoose": "^7.0.2",
     "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "simple-jscalendar": "^1.4.4"
   }
 }
