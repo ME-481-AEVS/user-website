@@ -26,7 +26,6 @@ router.get('/logout', (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      req.flash('success', 'Successfully logged out');
       res.redirect('/');
     }
   });
