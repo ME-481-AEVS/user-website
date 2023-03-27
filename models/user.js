@@ -14,6 +14,10 @@ let UserSchema = mongoose.Schema({
   },
   orders: {
     type: String
+  },
+  dateCreated: {
+    type: Date,
+    required: true
   }
 });
 

@@ -23,7 +23,8 @@ module.exports = (passport) => {
               User({
                 email: googleEmail,
                 displayName: profile.displayName,
-                displayPhoto: profile.photos[0].value
+                displayPhoto: profile.photos[0].value,
+                dateCreated: new Date()
               }).save()
                   .then((err, user) => {
                     return done(null, user);
