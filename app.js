@@ -20,6 +20,7 @@ let Order = require('./models/order');  // bring in order model
 
 const app = express();  // init app
 app.use(express.static(__dirname + '/views'));  // load views
+app.use(express.static(__dirname + '/views/components'));  // load views
 app.use(express.static(__dirname + '/public'));  // define public folder
 app.use('/js', express.static(__dirname + '/js/'));
 app.use('/css', express.static(__dirname + '/css/'));
