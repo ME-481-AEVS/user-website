@@ -11,17 +11,34 @@
 <body>
     <div class="container text-center">
         <h1 class="my-4">Schedule Delivery</h1>
-        <form>
+        <form method="post" action="/delivery/schedule">
             <div class="row">
                 <h5 class="mb-2">Date/Time<br></h5>
                 <div class="col">
                     <label for="deliveryDate">Date</label>
-                    <input type="text" id="deliveryDate" style="width: 100%;" placeholder="Select a date" data-datepicker/>
+                    <input
+                            type="text"
+                            id="deliveryDate"
+                            name="deliveryDate"
+                            style="width: 100%;"
+                            placeholder="Select a date"
+                            data-datepicker
+                            required
+                    />
                 </div>
                 <div class="col">
                     <div class="form-group">
                         <label for="deliveryTime">Time</label>
-                        <input id="deliveryTime" type="text" style="width: 100%;" placeholder="Select a time" aria-live="assertive" aria-label="Use up or down arrow keys to change time">
+                        <input
+                                type="text"
+                                id="deliveryTime"
+                                name="deliveryTime"
+                                style="width: 100%;"
+                                placeholder="Select a time"
+                                aria-live="assertive"
+                                aria-label="Use up or down arrow keys to change time"
+                                required
+                        />
                     </div>
                 </div>
             </div>
@@ -32,7 +49,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="deliveryPickup">Pickup</label>
-                            <select class="form-control" id="deliveryPickup">
+                            <select class="form-control" id="deliveryPickup" name="deliveryPickup">
                                 <option>Campus Center</option>
                                 <option>Queen Liliʻuokalani Center</option>
                                 <option>Hamilton Library</option>
@@ -44,7 +61,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="deliveryDestination">Destination</label>
-                            <select class="form-control" id="deliveryDestination">
+                            <select class="form-control" id="deliveryDestination" name="deliveryDestination">
                                 <option>Campus Center</option>
                                 <option>Queen Liliʻuokalani Center</option>
                                 <option>Hamilton Library</option>
@@ -57,7 +74,7 @@
             </div>
             <div class="form-group my-4">
                 <label for="exampleFormControlInput1"><h5>Delivery Notes</h5></label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Notes">
+                <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes"  placeholder="Notes">
             </div>
             <input type="submit" value="Schedule">
         </form>

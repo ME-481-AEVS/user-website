@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const OrderSchema = mongoose.Schema({
+const DeliverySchema = mongoose.Schema({
   status: {
     type: Number, // 1 = scheduled, 2 = in-progress, 3 = completed, 0 = cancelled, -1 = error (can modify later)
     required: true,
@@ -19,7 +19,6 @@ const OrderSchema = mongoose.Schema({
   },
   endTime: {
     type: Date,
-    required: true,
   },
   user_id: {
     type: String,
@@ -27,12 +26,7 @@ const OrderSchema = mongoose.Schema({
   },
   robot_id: {
     type: Number,
-    required: true,
-  },
-  pickup_code: {
-    type: String,
-    required: true,
   },
 });
 
-module.exports = mongoose.model('Order', OrderSchema);
+module.exports = mongoose.model('Delivery', DeliverySchema);
