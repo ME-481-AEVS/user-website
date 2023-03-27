@@ -1,38 +1,38 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-let OrderSchema = mongoose.Schema({
+const OrderSchema = mongoose.Schema({
   status: {
-    type: Number,  // 1 = scheduled, 2 = in-progress, 3 = completed, 0 = cancelled, -1 = error (can modify later)
-    required: true
+    type: Number, // 1 = scheduled, 2 = in-progress, 3 = completed, 0 = cancelled, -1 = error (can modify later)
+    required: true,
   },
   startLocation: {
     type: String,
-    required: true
+    required: true,
   },
   endLocation: {
     type: String,
-    required: true
+    required: true,
   },
   startTime: {
     type: Date,
-    required: true
+    required: true,
   },
   endTime: {
     type: Date,
-    required: true
+    required: true,
   },
   user_id: {
     type: String,
-    required: true
+    required: true,
   },
   robot_id: {
     type: Number,
-    required: true
+    required: true,
   },
   pickup_code: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Order', OrderSchema);

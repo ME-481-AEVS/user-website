@@ -1,6 +1,6 @@
-let mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-let RobotSchema = mongoose.Schema({
+const RobotSchema = mongoose.Schema({
   status: {
     /* -1: error
         0: off
@@ -11,8 +11,8 @@ let RobotSchema = mongoose.Schema({
         5: waiting for customer at drop-off location
      */
     type: Number,
-    required: true
-  }
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Robot', RobotSchema);
