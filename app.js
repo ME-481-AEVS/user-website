@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 const bodyParser = require('body-parser');
 const config = require('./config/database');
 
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 // express session
 app.use(session({
   secret: 'hehe',
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   cooke: { secure: true }
 }));
@@ -41,6 +42,13 @@ require('./controllers/googleAuth')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// express messages
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
 app.get('*', (req, res, next) => {
   res.locals.user = req.user || null;
   next();
@@ -48,7 +56,7 @@ app.get('*', (req, res, next) => {
 
 // home route
 app.get('/', (req, res) => {
-  res.render('index', { title: null });
+  res.render('index', { title: null, message: req.flash('message') });
 });
 
 let user = require('./routes/user');

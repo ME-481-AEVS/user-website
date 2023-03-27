@@ -29,7 +29,7 @@ module.exports = (passport) => {
                     return done(null, user);
                   });
             } else {
-              // TODO handle no hawaii email
+              return done(null);
             }
           }
         })

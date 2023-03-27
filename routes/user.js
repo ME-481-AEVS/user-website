@@ -6,13 +6,14 @@ const User = require('../models/user');
 router.get('/login', passport.authenticate('google', { scope: ['profile', 'email'] }));
 router.get(
     '/login/callback',
-    passport.authenticate('google', { failureRedirect: '/user/login_failed' }),
+    passport.authenticate('google', { failureRedirect: '/user/auth_failed' }),
     (req, res) => {
   res.redirect('/user/home');
 });
 
-router.get('/login_failed', (req, res) => {
-  res.render('login_failed', { title: ' | Login Failure' });
+router.get('/auth_failed', (req, res) => {
+  req.flash('danger', 'UH account required to log in');
+  res.render('index', { title: null });
 });
 
 // user homepage
@@ -26,6 +27,7 @@ router.get('/logout', (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      req.flash('success', 'Successfully logged out');
       res.redirect('/');
     }
   });
