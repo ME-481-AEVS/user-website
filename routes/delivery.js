@@ -13,11 +13,11 @@ function ensureAuthenticated(req, res, next) {
 }
 
 // request new delivery
-router.get('/schedule', ensureAuthenticated, (req, res) => {
-  res.render('delivery_schedule', { title: ' | Schedule New Delivery', profileImgUrl: req.user.displayPhoto });
+router.get('/new', ensureAuthenticated, (req, res) => {
+  res.render('delivery_new', { title: ' | Schedule New Delivery', profileImgUrl: req.user.displayPhoto });
 });
 
-router.post('/schedule', ensureAuthenticated, [
+router.post('/new', ensureAuthenticated, [
   check('deliveryDate', 'Date is required').notEmpty(),
   check('deliveryTime', 'Time is required').notEmpty(),
 ], (req, res) => {
@@ -25,13 +25,13 @@ router.post('/schedule', ensureAuthenticated, [
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log('error');
-    res.render('delivery_schedule', {
+    res.render('delivery_new', {
       title: ' | Schedule New Delivery',
       profileImgUrl: req.user.displayPhoto,
       errors,
     });
   } else {
-    let delivery = new Delivery();
+    const delivery = new Delivery();
     delivery.status = 1;
     delivery.startLocation = req.body.deliveryPickup;
     delivery.endLocation = req.body.deliveryDestination;
@@ -49,6 +49,16 @@ router.post('/schedule', ensureAuthenticated, [
       console.log(err);
     }
   }
+});
+
+// view scheduled deliveries
+router.get('/scheduled', ensureAuthenticated, (req, res) => {
+  res.render('delivery_scheduled', { title: ' | View Scheduled Deliveries', profileImgUrl: req.user.displayPhoto });
+});
+
+// view delivery history
+router.get('/history', ensureAuthenticated, (req, res) => {
+  res.render('delivery_history', { title: ' | View Scheduled Deliveries', profileImgUrl: req.user.displayPhoto });
 });
 
 module.exports = router;
