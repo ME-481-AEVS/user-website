@@ -12,9 +12,36 @@ function ensureAuthenticated(req, res, next) {
   return res.redirect('/');
 }
 
+// filter only future deliveries
+function getFutureDeliveries(deliveries) {
+  const currentTime = new Date();
+  const futureDeliveries = [];
+  for (const delivery of deliveries) {
+    if (delivery.startTime > currentTime) {
+      futureDeliveries.push(delivery);
+    }
+  }
+  return futureDeliveries;
+}
+
+// filter only past deliveries
+function getPastDeliveries(deliveries) {
+  const currentTime = new Date();
+  const pastDeliveries = [];
+  for (const delivery of deliveries) {
+    if (delivery.startTime < currentTime) {
+      pastDeliveries.push(delivery);
+    }
+  }
+  return pastDeliveries;
+}
+
 // request new delivery
 router.get('/new', ensureAuthenticated, (req, res) => {
-  res.render('delivery_new', { title: ' | Schedule New Delivery', profileImgUrl: req.user.displayPhoto });
+  res.render('delivery_new', {
+    title: ' | Schedule New Delivery',
+    profileImgUrl: req.user.displayPhoto,
+  });
 });
 
 router.post('/new', ensureAuthenticated, [
@@ -53,12 +80,44 @@ router.post('/new', ensureAuthenticated, [
 
 // view scheduled deliveries
 router.get('/scheduled', ensureAuthenticated, (req, res) => {
-  res.render('delivery_scheduled', { title: ' | View Scheduled Deliveries', profileImgUrl: req.user.displayPhoto });
+  Delivery.find({ user_id: req.user.id })
+    .then((deliveries) => {
+      const futureDeliveries = getFutureDeliveries(deliveries);
+      if (futureDeliveries.length < 1) {
+        req.flash('info', 'No upcoming deliveries');
+      }
+      res.render('delivery_scheduled', {
+        title: ' | View Scheduled Deliveries',
+        profileImgUrl: req.user.displayPhoto,
+        deliveries: futureDeliveries,
+      });
+    })
+    .catch(err => {
+      req.flash('error', 'Internal Error - Please Try Again');
+      res.redirect('/user/home');
+      console.log(err);
+    });
 });
 
 // view delivery history
 router.get('/history', ensureAuthenticated, (req, res) => {
-  res.render('delivery_history', { title: ' | View Scheduled Deliveries', profileImgUrl: req.user.displayPhoto });
+  Delivery.find({ user_id: req.user.id })
+    .then((deliveries) => {
+      const pastDeliveries = getPastDeliveries(deliveries);
+      if (pastDeliveries.length < 1) {
+        req.flash('info', 'No delivery history found');
+      }
+      res.render('delivery_history', {
+        title: ' | View Delivery History',
+        profileImgUrl: req.user.displayPhoto,
+        deliveries: pastDeliveries,
+      });
+    })
+    .catch(err => {
+      req.flash('error', 'Internal Error - Please Try Again');
+      res.redirect('/user/home');
+      console.log(err);
+    });
 });
 
 module.exports = router;
