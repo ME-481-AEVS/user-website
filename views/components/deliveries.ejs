@@ -1,0 +1,23 @@
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Start Location</th>
+        <th scope="col">End Location</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% deliveries.forEach( delivery => { %>
+        <tr>
+            <th scope="row"><%= delivery.startTime.toLocaleDateString() %></th>
+            <td><%= delivery.startTime.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
+            <td><%= delivery.startLocation %></td>
+            <td><%= delivery.endLocation %></td>
+            <td><%= delivery.status %></td>
+        </tr>
+    <% }); %>
+    </tr>
+    </tbody>
+</table>
