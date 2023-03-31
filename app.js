@@ -22,9 +22,8 @@ app.use(express.static(`${__dirname}/views/components`)); // load views
 app.use(express.static(`${__dirname}/public`)); // define public folder
 
 app.use('/scripts/bootstrap', express.static(`${__dirname}/node_modules/bootstrap/dist/`));
-app.use('/scripts/appt-picker', express.static(`${__dirname}/node_modules/appointment-picker/dist/`));
+app.use('/scripts/date-time', express.static(`${__dirname}/node_modules/date-time-picker-component/dist/`));
 app.use('/scripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist/`));
-app.use('/scripts/js-cal', express.static(`${__dirname}/node_modules/simple-jscalendar/`));
 
 app.set('view engine', 'ejs'); // set view engine to ejs
 

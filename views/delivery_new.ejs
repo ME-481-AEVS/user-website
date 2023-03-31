@@ -1,46 +1,16 @@
 <%- include('components/head') %>
 <%- include('components/navbar') %>
 <head>
-    <link rel="stylesheet" href="/scripts/appt-picker/appointment-picker.css">
-    <link rel="stylesheet" href="/scripts/js-cal/source/jsCalendar.css">
-    <script src="/scripts/js-cal/source/jsCalendar.js"></script>
-    <script src="/scripts/js-cal/extensions/jsCalendar.datepicker.js"></script>
-    <script src="/scripts/appt-picker/appointment-picker.min.js"></script>
+    <link href="/scripts/date-time/css/date-time-picker-component.min.css" rel="stylesheet" />
+    <script src="/scripts/date-time/js/date-time-picker-component.min.js"></script>
 </head>
-
 <body>
     <div class="container text-center">
         <h1 class="my-4">Schedule Delivery</h1>
         <form method="post" action="/delivery/new">
             <div class="row">
                 <h5 class="mb-2">Date/Time<br></h5>
-                <div class="col">
-                    <label for="deliveryDate">Date</label>
-                    <input
-                            type="text"
-                            id="deliveryDate"
-                            name="deliveryDate"
-                            style="width: 100%;"
-                            placeholder="Select a date"
-                            data-datepicker
-                            required
-                    />
-                </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label for="deliveryTime">Time</label>
-                        <input
-                                type="text"
-                                id="deliveryTime"
-                                name="deliveryTime"
-                                style="width: 100%;"
-                                placeholder="Select a time"
-                                aria-live="assertive"
-                                aria-label="Use up or down arrow keys to change time"
-                                required
-                        />
-                    </div>
-                </div>
+                <div id="datetimepicker"></div>
             </div>
             <div class="text-center mt-4">
                 <h5 class="mb-0">Locations<br></h5>
@@ -79,18 +49,21 @@
             <input type="submit" value="Schedule">
         </form>
     </div>
+    <script>
+      const today = new Date();
+      const oneMonth = new Date();
+      oneMonth.setMonth(today.getMonth() + 1);
+      const todayString = today.toISOString().substring(0, 19);
+      const oneMonthString = oneMonth.toISOString().substring(0, 19);
 
+      new DateTimePickerComponent.DateTimePicker( 'datetimepicker', {
+        start_date: todayString,
+        last_date: oneMonthString,
+        date_output: "timestamp",
+        styles: {
+          active_background: '#e34c26',
+          active_color: '#fff'
+        }
+      });
+    </script>
 </body>
-
-<script type="text/javascript">
-  let picker = new AppointmentPicker(document.getElementById('deliveryTime'), {
-    interval: 60,
-    mode: '12h',
-    minTime: 9,
-    maxTime: 18,
-    startTime: 9,
-    endTime: 18,
-    disabled: ['1:30 pm', '2:00 pm', '7:30 pm']
-  });
-</script>
-

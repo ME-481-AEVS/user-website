@@ -1,3 +1,19 @@
+<%
+function getStatus(status) {
+  switch (status) {
+      case 1:
+        return 'Scheduled';
+      case 2:
+        return 'In Progress';
+      case 3:
+        return 'Completed';
+      case 4:
+        return 'Canceled';
+      default:
+        return 'Error';
+  }
+}%>
+
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
@@ -15,7 +31,7 @@
             <td><%= delivery.startTime.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
             <td><%= delivery.startLocation %></td>
             <td><%= delivery.endLocation %></td>
-            <td><%= delivery.status %></td>
+            <td><%= getStatus(delivery.status) %></td>
         </tr>
     <% }); %>
     </tr>

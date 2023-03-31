@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/ME-481-AEVS/website#readme",
   "dependencies": {
-    "appointment-picker": "^2.0.0",
     "body-parser": "^1.20.2",
     "bootstrap": "^5.2.3",
     "connect-flash": "^0.1.1",
+    "date-time-picker-component": "^1.1.10",
     "ejs": "^3.1.9",
     "eslint": "^8.36.0",
     "eslint-config-airbnb-base": "^15.0.0",
