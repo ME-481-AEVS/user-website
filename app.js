@@ -69,7 +69,7 @@ app.use('/user', user);
 app.use('/delivery', delivery);
 
 // 404 routes
-app.use(function (req, res) {
+app.use((req, res) => {
   res.status(404);
 
   // respond with html page
@@ -86,6 +86,16 @@ app.use(function (req, res) {
 
   // default to plain-text
   res.type('txt').send('Not found');
+});
+
+// 500 route
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  res.status(500);
+  res.render('500', {
+    title: ' | Internal Server Error',
+    errors: err,
+  });
 });
 
 // start server
