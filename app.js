@@ -22,7 +22,7 @@ app.use(express.static(`${__dirname}/views/components`)); // load views
 app.use(express.static(`${__dirname}/public`)); // define public folder
 
 app.use('/scripts/bootstrap', express.static(`${__dirname}/node_modules/bootstrap/dist/`));
-app.use('/scripts/date-time', express.static(`${__dirname}/node_modules/date-time-picker-component/dist/`));
+app.use('/scripts/date-time', express.static(`${__dirname}/node_modules/date-time-new/dist/`));
 app.use('/scripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist/`));
 
 app.set('view engine', 'ejs'); // set view engine to ejs

@@ -1,0 +1,53 @@
+{
+  "name": "date-time-picker-component",
+  "description": "DateTimePickerComponent is a very lightweight and dependency-free web component written in pure JavaScript.",
+  "version": "1.1.10",
+  "keywords": [
+    "lightweight",
+    "time",
+    "date",
+    "calendar",
+    "vanilla-javascript",
+    "range",
+    "picker",
+    "mobile-friendly"
+  ],
+  "main": "dist/js/date-time-picker-component.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcellosurdi/DateTimePickerComponent.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marcellosurdi/DateTimePickerComponent/issues"
+  },
+  "homepage": "https://github.com/marcellosurdi/DateTimePickerComponent#readme",
+  "author": "Marcello Surdi <marcello.surdi@gmail.com> (https://www.marcellosurdi.name)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "webpack serve --config config/webpack.dev.js --open",
+    "build": "webpack --config config/webpack.prod.js",
+    "jsdoc": "jsdoc -r src -d docs -R README.md -c jsdoc.json"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.4",
+    "babel-loader": "^8.2.2",
+    "clean-jsdoc-theme": "^4.1.6",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "html-loader": "^4.1.0",
+    "html-tag-attributes-plugin": "^0.1.6",
+    "html-webpack-plugin": "^5.3.1",
+    "jsdoc": "^3.6.7",
+    "mini-css-extract-plugin": "^2.6.1",
+    "node-sass": "^7.0.1",
+    "sass-loader": "^13.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^4.9.3",
+    "webpack-merge": "^5.7.3"
+  }
+}
