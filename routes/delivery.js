@@ -44,37 +44,26 @@ router.get('/new', ensureAuthenticated, (req, res) => {
   });
 });
 
-router.post('/new', ensureAuthenticated, [
-  check('deliveryDate', 'Date is required').notEmpty(),
-  check('deliveryTime', 'Time is required').notEmpty(),
-], (req, res) => {
-  // get errors
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    console.log('error');
-    res.render('delivery_new', {
-      title: ' | Schedule New Delivery',
-      profileImgUrl: req.user.displayPhoto,
-      errors,
-    });
-  } else {
-    const delivery = new Delivery();
-    delivery.status = 1;
-    delivery.startLocation = req.body.deliveryPickup;
-    delivery.endLocation = req.body.deliveryDestination;
-    delivery.startTime = new Date(); // TODO parse from cal string
-    delivery.endTime = delivery.startTime;
-    delivery.endTime.setHours(delivery.endTime.getHours() + 1);
-    delivery.user_id = req.user.id;
+router.post('/new', ensureAuthenticated, (req, res) => {
+  const delivery = new Delivery();
+  const date = `${req.body.dateTimePicker_value}000`;
+  delivery.status = 1;
+  delivery.startLocation = req.body.deliveryPickup;
+  delivery.endLocation = req.body.deliveryDestination;
+  delivery.startTime = new Date(parseInt(date, 10));
+  delivery.endTime = new Date(parseInt(date, 10));
+  delivery.endTime.setHours(delivery.endTime.getHours() + 1);
+  delivery.user_id = req.user.id;
 
-    try {
-      delivery.save();
-      console.log('Delivery scheduled.');
-      req.flash('success', 'Delivery scheduled!');
-      res.redirect('/user/home');
-    } catch (err) {
-      console.log(err);
-    }
+  try {
+    delivery.save();
+    console.log('Delivery scheduled.');
+    req.flash('success', 'Delivery scheduled!');
+    res.redirect('/user/home');
+  } catch (err) {
+    req.flash('error', 'Internal server error - please try again in a few moments.');
+    res.redirect('/delivery/new');
+    console.log(err);
   }
 });
 

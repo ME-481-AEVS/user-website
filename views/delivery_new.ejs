@@ -1,5 +1,7 @@
 <%- include('components/head') %>
 <%- include('components/navbar') %>
+<%- messages('components/messages', locals) %>
+
 <head>
     <link href="/scripts/date-time/css/date-time-picker-component.min.css" rel="stylesheet" />
     <script src="/scripts/date-time/js/date-time-picker-component.min.js"></script>
@@ -10,7 +12,7 @@
         <form method="post" action="/delivery/new">
             <div class="row">
                 <h5 class="mb-2">Date/Time<br></h5>
-                <div id="datetimepicker"></div>
+                <div id="dateTimePicker" name="dateTimePicker"></div>
             </div>
             <div class="text-center mt-4">
                 <h5 class="mb-0">Locations<br></h5>
@@ -44,22 +46,25 @@
             </div>
             <div class="form-group my-4">
                 <label for="exampleFormControlInput1"><h5>Delivery Notes</h5></label>
-                <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes"  placeholder="Notes">
+                <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes" placeholder="Notes">
             </div>
             <input type="submit" value="Schedule">
         </form>
     </div>
     <script>
-      const today = new Date();
-      const oneMonth = new Date();
-      oneMonth.setMonth(today.getMonth() + 1);
+      const today = new Date(new Date() - 36000000);  // convert to HST :)
+      const oneMonth = new Date(today);
+      oneMonth.setMonth(oneMonth.getMonth() + 1);
       const todayString = today.toISOString().substring(0, 19);
       const oneMonthString = oneMonth.toISOString().substring(0, 19);
 
-      new DateTimePickerComponent.DateTimePicker( 'datetimepicker', {
+      new DateTimePickerComponent.DateTimePicker( 'dateTimePicker', {
+        first_date: todayString,
         start_date: todayString,
         last_date: oneMonthString,
         date_output: "timestamp",
+        start_hour: 8,
+        end_hour: 18,
         styles: {
           active_background: '#e34c26',
           active_color: '#fff'
