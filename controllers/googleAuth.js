@@ -7,7 +7,7 @@ module.exports = (passport) => {
   passport.use(new GoogleStrategy({
     clientID,
     clientSecret,
-    callbackURL: 'http://localhost:3000/user/login/callback',
+    callbackURL: '/user/login/callback',
   }, (accessToken, refreshToken, profile, done) => {
     // find if user exists exists
     User.findOne({ email: profile.emails[0].value })
