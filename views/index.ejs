@@ -1,13 +1,44 @@
 <%- include('components/head') %>
 <%- messages('components/messages', locals) %>
-<body>
-    <div class="container text-center mt-4">
-        <img src="/images/logo-tri.png" width="400px" alt="AEVS logo: a happy AEV surfing a rainbow">
-        <h1 style="font-weight: 600;">Welcome to AEVS UHM</h1>
-        <a href="/user/login" type="button" class="btn btn-light mt-3 py-2 px-4 border border-1" >
-            <img src="/images/logo-google.png" alt="Google logo" width="20px" class="pb-1 me-2">
-            <span class="me-2">Sign in with Google</span>
-        </a>
-        <p class="small mt-3 text-secondary">Valid UH email required</p>
+<body id="landing">
+    <div class="container mt-5 pt-5">
+        <div class="row flex-lg-row-reverse">
+            <div class="col-1"></div>
+            <div class="col-lg-4 pe-4 d-flex justify-content-center" style="pointer-events: none">
+                <img src="/images/logo-tri.png" width="400px" alt="AEVS logo: a happy AEV surfing a rainbow">
+            </div>
+            <div class="col-lg-6 m-auto">
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <h1 class="ms-4">Autonomous delivery<br>anywhere on campus.</h1>
+                    </div>
+                </div>
+                <div class="row m-auto" style="width: 60%">
+                    <a href="/user/login" type="button" class="btn btn-light mt-3 shadow" id="googleButton">
+                        <div class="row">
+                            <div class="col col-1">
+                                <img src="/images/logo-google.png" alt="Google logo" width="35px" class="m-auto">
+                            </div>
+                            <div class="col m-auto pe-3">Sign in with Google</div>
+                        </div>
+                    </a>
+                    <p class="small m-auto mt-3 text-center" style="color: #e5e5e5;">Valid UH email required</p>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="fixed-bottom small navbar navbar-expand">
+        <div class="container">
+            <div>
+                University of Hawaiʻi at Mānoa
+            </div>
+            <div id="icons">
+                <a href="#"><i class="bi bi-info-circle-fill mx-1"></i></a>
+                <a href="#"><i class="bi bi-envelope-fill mx-1"></i></a>
+                <a href="https://giving.uhfoundation.org/funds/13025304" target="_blank"><i class="bi bi-coin mx-1"></i></a>
+                <a href="https://github.com/ME-481-AEVS" target="_blank"><i class="bi bi-github ms-1"></i></a>
+            </div>
+        </div>
     </div>
 </body>
