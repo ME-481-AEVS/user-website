@@ -9,29 +9,16 @@
   --bs-link-hover-color: #e9eae1;
 }
 
-#landing {
-  color: white;
-  background-color: #537c43;
-}
-
-#landing h1 {
-  font-size: 45px;
-  font-weight: 620;
-}
-
-#googleButton {
-  --bs-btn-bg: #eaeaea;
-  --bs-btn-color: #515151;
-  border-radius: 1px;
-}
-
-#landing .fixed-bottom {
-  height: 60px;
-  background-color: #335c26;
-}
-
-#icons {
-  font-size: 20px;
-  --bs-link-color: white;
-  --bs-link-hover-color: #869b7f;
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 2rem !important;
+    line-height: 95%;
+    margin-top: 10px;
+  }
+  a {
+    font-size: 0.8rem !important;
+  }
+  .small {
+    font-size: 0.7rem !important
+  }
 }
