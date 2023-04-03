@@ -71,7 +71,7 @@
         */
 
         if (delivery) { %>
-            <%- `Delivery from <b>${delivery.startLocation}</b> to <b>${delivery.endLocation}</b>
+            <%- `<b>${delivery.startLocation}</b> to <b>${delivery.endLocation}</b>
             on <b>${delivery.startTime.toLocaleDateString()}</b> at
             <b>${delivery.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</b>`
             %>

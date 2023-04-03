@@ -3,6 +3,16 @@
 <%- include('../util/helpers') %>
 <%- messages('components/messages', locals) %>
 
+<style>
+    .edit {
+      --bs-link-color: #0780b9;
+      --bs-link-hover-color: #056794;
+    }
+    .cancel {
+      --bs-link-color: #e13232;
+      --bs-link-hover-color: #a41313;
+    }
+</style>
 <body>
 <div class="container text-center">
     <h1 class="my-4">Scheduled Deliveries</h1>
@@ -26,8 +36,8 @@
                 <td><%= delivery.endLocation %></td>
                 <td><%= getStatus(delivery.status) %></td>
                 <td>
-                    <a href="#" class="me-2"><i class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="ms-2"><i class="bi bi-x-circle-fill"></i></a>
+                    <a href="#" class="me-2 edit"><i class="bi bi-pencil-fill"></i></a>
+                    <a href="#" class="ms-2 cancel"><i class="bi bi-x-circle-fill"></i></a>
                 </td>
             </tr>
         <% }); %>
