@@ -2,7 +2,15 @@ const mongoose = require('mongoose');
 
 const DeliverySchema = mongoose.Schema({
   status: {
-    type: Number, // 1 = scheduled, 2 = in-progress, 3 = completed, 0 = cancelled, -1 = error (can modify later)
+    /* 1: scheduled
+       2: waiting at pickup
+       3: moving to drop-off
+       4: waiting at drop-off
+       5: completed
+       0: cancelled
+       -1: error
+     */
+    type: Number,
     required: true,
   },
   startLocation: {

@@ -1,6 +1,6 @@
 const express = require('express');
-const { check, validationResult } = require('express-validator');
 const Delivery = require('../models/delivery');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -10,30 +10,6 @@ function ensureAuthenticated(req, res, next) {
     return next();
   }
   return res.redirect('/');
-}
-
-// filter only future deliveries
-function getFutureDeliveries(deliveries) {
-  const currentTime = new Date();
-  const futureDeliveries = [];
-  for (const delivery of deliveries) {
-    if (delivery.startTime > currentTime) {
-      futureDeliveries.push(delivery);
-    }
-  }
-  return futureDeliveries;
-}
-
-// filter only past deliveries
-function getPastDeliveries(deliveries) {
-  const currentTime = new Date();
-  const pastDeliveries = [];
-  for (const delivery of deliveries) {
-    if (delivery.startTime < currentTime) {
-      pastDeliveries.push(delivery);
-    }
-  }
-  return pastDeliveries;
 }
 
 // request new delivery
@@ -50,8 +26,8 @@ router.post('/new', ensureAuthenticated, (req, res) => {
   delivery.status = 1;
   delivery.startLocation = req.body.deliveryPickup;
   delivery.endLocation = req.body.deliveryDestination;
-  delivery.startTime = new Date(parseInt(date, 10));
-  delivery.endTime = new Date(parseInt(date, 10));
+  delivery.startTime = new Date(parseInt(date, 10) + 36000000);
+  delivery.endTime = new Date(parseInt(date, 10) + 36000000);
   delivery.endTime.setHours(delivery.endTime.getHours() + 1);
   delivery.user_id = req.user.id;
 
@@ -71,14 +47,13 @@ router.post('/new', ensureAuthenticated, (req, res) => {
 router.get('/scheduled', ensureAuthenticated, (req, res) => {
   Delivery.find({ user_id: req.user.id })
     .then((deliveries) => {
-      const futureDeliveries = getFutureDeliveries(deliveries);
-      if (futureDeliveries.length < 1) {
+      if (deliveries.length < 1) {
         req.flash('info', 'No upcoming deliveries');
       }
       res.render('delivery_scheduled', {
         title: ' | View Scheduled Deliveries',
         profileImgUrl: req.user.displayPhoto,
-        deliveries: futureDeliveries,
+        deliveries,
       });
     })
     .catch(err => {
@@ -90,16 +65,15 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
 
 // view delivery history
 router.get('/history', ensureAuthenticated, (req, res) => {
-  Delivery.find({ user_id: req.user.id })
-    .then((deliveries) => {
-      const pastDeliveries = getPastDeliveries(deliveries);
-      if (pastDeliveries.length < 1) {
+  User.find({ _id: req.user.id })
+    .then((user) => {
+      if (user[0].deliveryHistory.length < 1) {
         req.flash('info', 'No delivery history found');
       }
       res.render('delivery_history', {
         title: ' | View Delivery History',
         profileImgUrl: req.user.displayPhoto,
-        deliveries: pastDeliveries,
+        deliveries: user[0].deliveryHistory,
       });
     })
     .catch(err => {

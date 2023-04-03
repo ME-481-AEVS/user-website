@@ -19,6 +19,10 @@ const UserSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
+  deliveryHistory: {
+    type: Array,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('User', UserSchema);

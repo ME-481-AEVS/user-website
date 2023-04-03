@@ -23,6 +23,7 @@ module.exports = (passport) => {
             displayName: profile.displayName,
             displayPhoto: profile.photos[0].value,
             dateCreated: new Date(),
+            deliveryHistory: [],
           }).save()
             .then((err, usr) => done(null, usr));
         } else {
