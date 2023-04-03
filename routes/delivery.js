@@ -53,7 +53,7 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
       res.render('delivery_scheduled', {
         title: ' | View Scheduled Deliveries',
         profileImgUrl: req.user.displayPhoto,
-        deliveries,
+        deliveries: deliveries.sort((a,b) => a.startTime - b.startTime),
       });
     })
     .catch(err => {
