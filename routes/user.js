@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const Delivery = require('../models/delivery');
 
 const router = express.Router();
 
@@ -27,7 +28,14 @@ router.get('/auth_failed', (req, res) => {
 
 // user homepage
 router.get('/home', ensureAuthenticated, (req, res) => {
-  res.render('home', { title: ' | Home', profileImgUrl: req.user.displayPhoto });
+  Delivery.find({ user_id: req.user.id })
+    .then((deliveries) => {
+      res.render('home', {
+        title: ' | Home',
+        profileImgUrl: req.user.displayPhoto,
+        delivery: deliveries.reduce((prev, curr) => prev.startTime < curr.startTime ? prev : curr),
+      });
+    });
 });
 
 // logout

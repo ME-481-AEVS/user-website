@@ -1,12 +1,101 @@
 <%- include('components/head') %>
 <%- include('components/navbar') %>
+<%- include('../util/helpers') %>
 <%- messages('components/messages', locals) %>
 
+<style>
+  .content-wrap {
+    width: 60%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .progress-subtitles {
+    width: 71%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    overflow: hidden;
+  }
+
+  .subtitle {
+    width: 20%;
+  }
+
+  .complete {
+    color: #335c26;
+  }
+
+  .incomplete {
+    color: #989898;
+  }
+
+  .content-wrap::before {
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 0;
+    left: 0;
+    Content: "";
+    Background-color: #adadad;
+    height: 2px;
+  }
+
+  .icon1 {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background: #ffffff;
+    box-shadow: 0 0 0 0.5em #ffffff;
+  }
+</style>
+
 <body>
-    <div class="container text-center">
-        <h1 class="mt-3">Home</h1>
-        <p>Current Delivery Status: <br>
-            Delivery in-progress (ETA 4:00 PM)</p><br>
+    <div class="container text-center mt-4">
+        <%
+        /* 1: scheduled
+           2: waiting at pickup
+           3: moving to drop-off
+           4: waiting at drop-off
+           5: completed
+           0: cancelled
+           -1: error
+        */
+
+        if (delivery) { %>
+            <%- `Delivery from <b>${delivery.startLocation}</b> to <b>${delivery.endLocation}</b>
+            on <b>${delivery.startTime.toLocaleDateString()}</b> at
+            <b>${delivery.startTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</b>`
+            %>
+        <div class="container content-wrap mt-3">
+            <i class="bi bi-check-circle-fill icon1 complete"></i>
+            <i class="bi bi-circle icon1 <%= delivery.status < 2 ? 'incomplete' : 'complete'%>"></i>
+            <i class="bi bi-circle icon1 <%= delivery.status < 3 ? 'incomplete' : 'complete'%>"></i>
+            <i class="bi bi-circle icon1 <%= delivery.status < 4 ? 'incomplete' : 'complete'%>"></i>
+            <i class="bi bi-circle icon1 <%= delivery.status < 5 ? 'incomplete' : 'complete'%>"></i>
+        </div>
+        <div class="container progress-subtitles small mt-2">
+            <p class="subtitle complete">Scheduled</p>
+            <p class="subtitle <%= delivery.status < 2 ? 'incomplete' : 'complete'%>">Ready to Pick Up</p>
+            <p class="subtitle <%= delivery.status < 3 ? 'incomplete' : 'complete'%>">Moving</p>
+            <p class="subtitle <%= delivery.status < 4 ? 'incomplete' : 'complete'%>">Ready to Drop Off</p>
+            <p class="subtitle <%= delivery.status < 5 ? 'incomplete' : 'complete'%>">Complete</p>
+
+        </div>
+
+        <% } else { %>
+            <p>No upcoming deliveries</p>
+        <% } %>
+        <br>
+        <br>
         <a href="/delivery/new" type="button" class="btn btn-light py-2 px-4 border border-1">Schedule a New Delivery</a><br>
         <a href="/delivery/scheduled" type="button" class="btn btn-light py-2 px-4 border border-1">View Scheduled Deliveries</a><br>
         <a href="/delivery/history" type="button" class="btn btn-light py-2 px-4 border border-1">View Delivery History</a>

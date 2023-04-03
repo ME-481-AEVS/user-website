@@ -1,10 +1,35 @@
 <%- include('components/head') %>
 <%- include('components/navbar') %>
+<%- include('../util/helpers') %>
 <%- messages('components/messages', locals) %>
 
 <body>
     <div class="container text-center">
         <h1 class="my-4">Delivery History</h1>
-        <%- include('components/deliveries') %>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Start Location</th>
+                <th scope="col">End Location</th>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% deliveries.forEach( delivery => { %>
+                <tr>
+                    <th scope="row"><%= delivery.startTime.toLocaleDateString() %></th>
+                    <td><%= delivery.startTime.toLocaleTimeString([], {timeStyle: 'short'}) %></td>
+                    <td><%= delivery.startLocation %></td>
+                    <td><%= delivery.endLocation %></td>
+                    <td><%= getStatus(delivery.status) %></td>
+                </tr>
+            <% }); %>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <a href="#">Clear Delivery History</a>
     </div>
 </body>

@@ -1,0 +1,19 @@
+<%
+getStatus = (status) => {
+    switch (status) {
+        case 1:
+            return 'Scheduled';
+        case 2:
+            return 'Waiting at Pickup';
+        case 3:
+            return 'Moving to Drop-off';
+        case 4:
+            return 'Waiting at Drop-off';
+        case 5:
+            return 'Complete';
+        case 0:
+            return 'Cancelled';
+        default:
+            return 'Error';
+    }
+} %>
