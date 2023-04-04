@@ -39,8 +39,8 @@
   .content-wrap::before {
     position: absolute;
     top: calc(50% - 1px);
-    right: 0;
-    left: 0;
+    right: 10px;
+    left: 10px;
     Content: "";
     Background-color: #adadad;
     height: 2px;
@@ -55,6 +55,19 @@
     font-size: 2rem;
     background: #ffffff;
     box-shadow: 0 0 0 0.5em #ffffff;
+  }
+
+  @media screen and (max-width: 450px) {
+    .content-wrap {
+      width: 90%;
+    }
+    .progress-subtitles {
+      width: 100%;
+    }
+    .icon1 {
+      font-size: 1.5rem;
+      box-shadow: 0 0 0 0.2em #ffffff;
+    }
   }
 </style>
 
