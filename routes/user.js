@@ -31,7 +31,7 @@ router.get('/home', ensureAuthenticated, (req, res) => {
   Delivery.find({ user_id: req.user.id })
     .then((deliveries) => {
       let delivery = null;
-      if (deliveries.length > 1) {
+      if (deliveries.length > 0) {
         delivery = deliveries.reduce((prev, curr) => (prev.startTime < curr.startTime ? prev : curr));
       }
       res.render('home', {

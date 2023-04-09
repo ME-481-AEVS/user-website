@@ -66,6 +66,13 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
     });
 });
 
+// delete delivery
+router.post('/cancel', ensureAuthenticated, (req, res) => {
+  console.log(req.body);
+  req.flash('success', 'Delivery cancelled!');
+  res.redirect('/delivery/scheduled');
+});
+
 // view delivery history
 router.get('/history', ensureAuthenticated, (req, res) => {
   User.find({ _id: req.user.id })
