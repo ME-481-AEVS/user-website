@@ -9,6 +9,10 @@
   --bs-link-hover-color: #e9eae1;
 }
 
+.no-gutter {
+  --bs-gutter-x: 0;
+}
+
 @media screen and (max-width: 450px) {
   h1 {
     font-size: 2rem !important;

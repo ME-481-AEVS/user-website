@@ -43,6 +43,23 @@ router.post('/new', ensureAuthenticated, (req, res) => {
   }
 });
 
+// edit a scheduled delivery
+router.post('/edit', ensureAuthenticated, (req, res) => {
+  Delivery.find({ _id: req.body.editId })
+    .then((delivery) => {
+      res.render('delivery_edit', {
+        title: ' | Edit Delivery',
+        profileImgUrl: req.user.displayPhoto,
+        delivery,
+      });
+    })
+    .catch(err => {
+      req.flash('error', 'Internal Error - Please Try Again');
+      res.redirect('/user/home');
+      console.log(err);
+    });
+});
+
 // view scheduled deliveries
 router.get('/scheduled', ensureAuthenticated, (req, res) => {
   Delivery.find({ user_id: req.user.id })
@@ -66,7 +83,7 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
     });
 });
 
-// delete delivery
+// delete a delivery
 router.post('/cancel', ensureAuthenticated, (req, res) => {
   Delivery.deleteOne({ _id: req.body.cancelId })
     .then(() => {

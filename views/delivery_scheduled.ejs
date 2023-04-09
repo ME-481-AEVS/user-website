@@ -5,8 +5,12 @@
 
 <style>
   .edit {
-    --bs-link-color: #0780b9;
-    --bs-link-hover-color: #056794;
+    color: #0780b9;
+    border: #000000;
+  }
+
+  .edit:hover {
+    color: #056794;
   }
 
   .cancel {
@@ -36,11 +40,18 @@
                 <td><%= delivery.startLocation %></td>
                 <td><%= delivery.endLocation %></td>
                 <td><%= getStatus(delivery.status) %></td>
-                <td>
-                    <a href="#" class="me-2 edit"><i class="bi bi-pencil-fill"></i></a>
-                    <a type="button" data-bs-toggle="modal" data-id="<%= delivery.id %>" data-bs-target="#cancelModal" class="ms-2 cancel">
-                        <i class="bi bi-x-circle-fill"></i>
-                    </a>
+                <td class="row no-gutter">
+                    <div class="col d-flex justify-content-end me-2">
+                        <form action="/delivery/edit" method="post">
+                            <input type="hidden" name="editId" value="<%= delivery.id %>">
+                            <button type="submit" class="me-2 edit"><i class="bi bi-pencil-fill"></i></button>
+                        </form>
+                    </div>
+                    <span class="col d-flex justify-content-start ms-2">
+                        <a type="button" data-bs-toggle="modal" data-id="<%= delivery.id %>" data-bs-target="#cancelModal" class="ms-2 cancel">
+                            <i class="bi bi-x-circle-fill"></i>
+                        </a>
+                    </span>
                 </td>
             </tr>
         <% }); %>
