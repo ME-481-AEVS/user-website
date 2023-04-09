@@ -26,4 +26,7 @@ module.exports = {
     'no-return-assign': 'off',
     'prefer-arrow-callback': 'off',
   },
+  plugins: [
+    'ejs',
+  ],
 };
