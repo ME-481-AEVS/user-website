@@ -68,9 +68,15 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
 
 // delete delivery
 router.post('/cancel', ensureAuthenticated, (req, res) => {
-  console.log(req.body);
-  req.flash('success', 'Delivery cancelled!');
-  res.redirect('/delivery/scheduled');
+  Delivery.deleteOne({ _id: req.body.cancelId })
+    .then(() => {
+      console.log('Cancelled a scheduled delivery.');
+      req.flash('success', 'Delivery cancelled!');
+      res.redirect('/delivery/scheduled');
+    })
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 // view delivery history
