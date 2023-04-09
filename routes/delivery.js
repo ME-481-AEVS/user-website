@@ -50,6 +50,9 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
       if (deliveries.length < 1) {
         req.flash('info', 'No upcoming deliveries');
       }
+      for (const delivery of deliveries) {
+        delivery.startTime -= 36000000; // convert back to HST - this is necessary on the SERVER SIDE ONLY
+      }
       res.render('delivery_scheduled', {
         title: ' | View Scheduled Deliveries',
         profileImgUrl: req.user.displayPhoto,

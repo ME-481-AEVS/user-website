@@ -32,7 +32,7 @@ router.get('/home', ensureAuthenticated, (req, res) => {
     .then((deliveries) => {
       let delivery = null;
       if (deliveries.length > 1) {
-        delivery = deliveries.reduce((prev, curr) => prev.startTime < curr.startTime ? prev : curr);
+        delivery = deliveries.reduce((prev, curr) => (prev.startTime < curr.startTime ? prev : curr));
       }
       res.render('home', {
         title: ' | Home',
