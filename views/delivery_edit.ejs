@@ -64,7 +64,7 @@
     <link href="/scripts/date-time/css/date-time-picker-component.min.css" rel="stylesheet" />
     <script src="/scripts/date-time/js/date-time-picker-component.min.js"></script>
     <script>
-      const deliveryDate = new Date(document.getElementById('deliveryDateTime').innerHTML);
+      const deliveryDate = new Date(new Date(document.getElementById('deliveryDateTime').innerHTML) - 36000000);  // convert to HST :);
       const today = new Date();
       const oneMonth = new Date();
       oneMonth.setMonth(oneMonth.getMonth() + 1);
