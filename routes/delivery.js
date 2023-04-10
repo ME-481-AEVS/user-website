@@ -1,6 +1,7 @@
 const express = require('express');
 const Delivery = require('../models/delivery');
 const User = require('../models/user');
+const ObjectID = require('mongodb').ObjectID;
 
 const router = express.Router();
 
@@ -30,6 +31,7 @@ router.post('/new', ensureAuthenticated, (req, res) => {
   delivery.endTime = new Date(parseInt(date, 10) + 36000000);
   delivery.endTime.setHours(delivery.endTime.getHours() + 1);
   delivery.user_id = req.user.id;
+  delivery.message = req.body.deliveryMessage;
 
   try {
     delivery.save();
@@ -56,6 +58,38 @@ router.post('/edit', ensureAuthenticated, (req, res) => {
     .catch(err => {
       req.flash('error', 'Internal Error - Please Try Again');
       res.redirect('/user/home');
+      console.log(err);
+    });
+});
+
+// update delivery with new info
+router.post('/update', ensureAuthenticated, (req, res) => {
+  const date = `${req.body.dateTimePicker_value}000`;
+  const startTime = new Date(parseInt(date, 10) + 36000000);
+  const endTime = new Date(parseInt(date, 10) + 36000000);
+  endTime.setHours(endTime.getHours() + 1);
+  Delivery.updateOne(
+    { _id: req.body.deliveryId },
+    {
+      $set: {
+        status: 1,
+        startLocation: req.body.deliveryPickup,
+        endLocation: req.body.deliveryDestination,
+        startTime,
+        endTime,
+        user_id: req.user.id,
+        message: req.body.deliveryMessage,
+      },
+    },
+  )
+    .then(() => {
+      console.log('Delivery updated.');
+      req.flash('success', 'Delivery updated!');
+      res.redirect('/delivery/scheduled');
+    })
+    .catch(err => {
+      req.flash('error', 'Internal server error - please try again in a few moments.');
+      res.redirect('/delivery/scheduled');
       console.log(err);
     });
 });

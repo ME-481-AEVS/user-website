@@ -16,7 +16,7 @@
     <div class="container text-center px-5">
         <h1 class="my-4">Edit Delivery</h1>
         <div class="container" id="formContainer">
-            <form method="post" action="/delivery/new">
+            <form method="post" action="/delivery/update">
                 <div class="row">
                     <h5 class="mb-2">Date/Time<br></h5>
                     <div id="deliveryDateTime" hidden><%= delivery[0].startTime %></div>
@@ -50,11 +50,12 @@
                                 </select>
                             </div>
                         </div>
+                        <input name="deliveryId" value="<%= delivery[0].id %>" hidden>
                     </div>
                 </div>
                 <div class="form-group my-4">
                     <label for="exampleFormControlInput1"><h5>Delivery Message</h5></label>
-                    <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes" placeholder="Optional - Add a message for the recipient" <%= delivery[0].message ? `value="${delivery[0].message}"` : '' %>>
+                    <input type="text" class="form-control" id="deliveryMessage" name="deliveryMessage" placeholder="Optional - Add a message for the recipient" <%= delivery[0].message ? `value="${delivery[0].message}"` : '' %>>
                 </div>
                 <input type="submit" value="Update Delivery" class="btn btn-success py-2 px-4 border border-1">
             </form>
@@ -70,10 +71,6 @@
       const dateString = deliveryDate.toISOString().substring(0, 19);
       const todayString = today.toISOString().substring(0, 19);
       const oneMonthString = oneMonth.toISOString().substring(0, 19);
-
-      console.log(dateString)
-      console.log(todayString)
-      console.log(oneMonthString)
 
       new DateTimePickerComponent.DateTimePicker( 'dateTimePicker', {
         first_date: todayString,
