@@ -16,10 +16,10 @@
     <div class="container text-center px-5">
         <h1 class="my-4">Edit Delivery</h1>
         <div class="container" id="formContainer">
-            <% console.log(delivery) %>
             <form method="post" action="/delivery/new">
                 <div class="row">
                     <h5 class="mb-2">Date/Time<br></h5>
+                    <div id="deliveryDateTime" hidden><%= delivery[0].startTime %></div>
                     <div id="dateTimePicker" name="dateTimePicker"></div>
                 </div>
                 <div class="text-center mt-4">
@@ -30,11 +30,11 @@
                             <div class="form-group">
                                 <label for="deliveryPickup">Pickup</label>
                                 <select class="form-control" id="deliveryPickup" name="deliveryPickup">
-                                    <option>Campus Center</option>
-                                    <option>Queen Liliʻuokalani Center</option>
-                                    <option>Hamilton Library</option>
-                                    <option>Sinclair Library</option>
-                                    <option>POST Engineering Building</option>
+                                    <option <%= delivery[0].startLocation === 'Campus Center' ? 'selected' : '' %>>Campus Center</option>
+                                    <option <%= delivery[0].startLocation === 'Queen Liliʻuokalani Center' ? 'selected' : '' %>>Queen Liliʻuokalani Center</option>
+                                    <option <%= delivery[0].startLocation === 'Hamilton Library' ? 'selected' : '' %>>Hamilton Library</option>
+                                    <option <%= delivery[0].startLocation === 'Sinclair Library' ? 'selected' : '' %>>Sinclair Library</option>
+                                    <option <%= delivery[0].startLocation === 'POST Engineering Building' ? 'selected' : '' %>>POST Engineering Building</option>
                                 </select>
                             </div>
                         </div>
@@ -42,36 +42,42 @@
                             <div class="form-group">
                                 <label for="deliveryDestination">Destination</label>
                                 <select class="form-control" id="deliveryDestination" name="deliveryDestination">
-                                    <option>Campus Center</option>
-                                    <option>Queen Liliʻuokalani Center</option>
-                                    <option>Hamilton Library</option>
-                                    <option>Sinclair Library</option>
-                                    <option>POST Engineering Building</option>
+                                    <option <%= delivery[0].endLocation === 'Campus Center' ? 'selected' : '' %>>Campus Center</option>
+                                    <option <%= delivery[0].endLocation === 'Queen Liliʻuokalani Center' ? 'selected' : '' %>>Queen Liliʻuokalani Center</option>
+                                    <option <%= delivery[0].endLocation === 'Hamilton Library' ? 'selected' : '' %>>Hamilton Library</option>
+                                    <option <%= delivery[0].endLocation === 'Sinclair Library' ? 'selected' : '' %>>Sinclair Library</option>
+                                    <option <%= delivery[0].endLocation === 'POST Engineering Building' ? 'selected' : '' %>>POST Engineering Building</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group my-4">
-                    <label for="exampleFormControlInput1"><h5>Notes</h5></label>
-                    <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes" placeholder="Notes">
+                    <label for="exampleFormControlInput1"><h5>Delivery Message</h5></label>
+                    <input type="text" class="form-control" id="deliveryNotes" name="deliveryNotes" placeholder="Optional - Add a message for the recipient" <%= delivery[0].message ? `value="${delivery[0].message}"` : '' %>>
                 </div>
-                <input type="submit" value="Schedule" class="btn btn-success py-2 px-4 border border-1">
+                <input type="submit" value="Update Delivery" class="btn btn-success py-2 px-4 border border-1">
             </form>
         </div>
     </div>
     <link href="/scripts/date-time/css/date-time-picker-component.min.css" rel="stylesheet" />
     <script src="/scripts/date-time/js/date-time-picker-component.min.js"></script>
     <script>
-      const today = new Date(new Date() - 36000000);  // convert to HST :)
-      const oneMonth = new Date(today);
+      const deliveryDate = new Date(document.getElementById('deliveryDateTime').innerHTML);
+      const today = new Date();
+      const oneMonth = new Date();
       oneMonth.setMonth(oneMonth.getMonth() + 1);
+      const dateString = deliveryDate.toISOString().substring(0, 19);
       const todayString = today.toISOString().substring(0, 19);
       const oneMonthString = oneMonth.toISOString().substring(0, 19);
 
+      console.log(dateString)
+      console.log(todayString)
+      console.log(oneMonthString)
+
       new DateTimePickerComponent.DateTimePicker( 'dateTimePicker', {
         first_date: todayString,
-        start_date: todayString,
+        start_date: dateString,
         last_date: oneMonthString,
         date_output: "timestamp",
         start_hour: 8,

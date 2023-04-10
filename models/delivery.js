@@ -32,6 +32,9 @@ const DeliverySchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  message: {
+    type: String,
+  },
   robot_id: {
     type: Number,
   },
