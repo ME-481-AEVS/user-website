@@ -31,13 +31,12 @@ router.get('/aev1', (req, res) => {
     });
 });
 
-router.post('/aev1', (req) => {
+router.post('/aev1', (req, res) => {
   // todo source checking
   Robot.updateOne(
     { name: req.body.name },
     {
       $set: {
-        name: req.body.name,
         status: req.body.status,
         currentOrderId: req.body.currentOrderId,
         ipAddress: req.body.ipAddress,
@@ -53,9 +52,10 @@ router.post('/aev1', (req) => {
         gps: req.body.gps,
       },
     },
-  )
+  ).then(res.send(req.body))
     .catch(err => {
       console.log(err);
+      res.send({ 500: 'internal server error' });
     });
 });
 
