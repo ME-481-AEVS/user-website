@@ -65,9 +65,11 @@ app.get('/', (req, res) => {
 
 const user = require('./routes/user');
 const delivery = require('./routes/delivery');
+const robot = require('./routes/robot');
 
 app.use('/user', user);
 app.use('/delivery', delivery);
+app.use('/robot', robot);
 
 // 404 routes
 app.use((req, res) => {
