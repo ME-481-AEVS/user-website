@@ -25,11 +25,14 @@
 </div>
 <script src="/scripts/qrcode/qrcode.min.js"></script>
 <script>
-  // give jquery time to load code
-  setTimeout(() => {
-    $(document).ready(function () {
-      new QRCode(document.getElementById("qrcode"), $('#deliveryCode')[0].innerHTML);
-    });
-  }, 100);
+  // load a new qr code each time we show the modal
+  $(document).ready(function () {
+      $('#qrCodeModal').on('show.bs.modal', function (e) {
+        setTimeout(() => {
+          $('#qrcode').html('');
+          new QRCode($("#qrcode")[0], $('#deliveryCode')[0].innerHTML);
+        }, 100);
+      });
+  });
 
 </script>

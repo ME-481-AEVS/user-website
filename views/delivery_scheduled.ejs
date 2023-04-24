@@ -31,6 +31,7 @@
             <th scope="col">End Location</th>
             <th scope="col">Status</th>
             <th scope="col">Edit / Cancel</th>
+            <th scope="col">QR Code</th>
         </tr>
         </thead>
         <tbody>
@@ -54,6 +55,11 @@
                         </a>
                     </span>
                 </td>
+                <td>
+                    <a type="button" data-bs-toggle="modal" data-code="<%= delivery.deliveryCode %>" data-bs-target="#qrCodeModal" class="ms-2 cancel">
+                        <%= delivery.deliveryCode %>
+                    </a>
+                </td>
             </tr>
         <% }); %>
         </tbody>
@@ -74,10 +80,16 @@
     });
   }
 
-  // get the delivery id and add it to the form
+
   $(document).ready(function () {
+    // get the delivery id and add it to the form
     $('#cancelModal').on('show.bs.modal', function (e) {
       $('#cancelId').val($(e.relatedTarget).data('id'));
+    });
+    // get the delivery code and add it to the modal
+    $('#qrCodeModal').on('show.bs.modal', function (e) {
+      console.log($(e.relatedTarget).data('code'))
+      $('#deliveryCode').html($(e.relatedTarget).data('code'));
     });
   });
 </script>
