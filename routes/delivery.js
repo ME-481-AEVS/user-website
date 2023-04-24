@@ -36,7 +36,7 @@ router.post('/new', ensureAuthenticated, (req, res) => {
     delivery.save();
     console.log('Delivery scheduled.');
     req.flash('success', 'Delivery scheduled!');
-    res.redirect('/user/home');
+    res.redirect('/delivery/scheduled');
   } catch (err) {
     req.flash('error', 'Internal server error - please try again in a few moments.');
     res.redirect('/delivery/new');
