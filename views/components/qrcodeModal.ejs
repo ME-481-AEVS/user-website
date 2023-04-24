@@ -2,13 +2,20 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Delivery QR Codes</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Delivery QR Code</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Save this QR code. You will need to display it to the robot when you drop-off your package, and again when you pickup.
-                If someone else is picking up the package, be sure to save this QR code with them. The code will be remain available for viewing
-                at the 'Scheduled Deliveries' page.
+                <div id="deliveryCode" hidden>000000</div>
+                <div class="col d-flex justify-content-center mb-3">
+                    <div id="qrcode"></div>
+                </div>
+                You will need this QR code <b>twice</b>: once when you drop-off your package, and again when you pick up.
+                If someone else is picking up the package, <b>be sure to share this QR code with them</b>.<br><br>
+
+                <b>The robot's door will not open without this QR code!</b> This is a security measure to prevent stolen packages.<br><br>
+
+                The QR code will be remain available for viewing at the 'Scheduled Deliveries' page.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
@@ -16,3 +23,13 @@
         </div>
     </div>
 </div>
+<script src="/scripts/qrcode/qrcode.min.js"></script>
+<script>
+  // give jquery time to load code
+  setTimeout(() => {
+    $(document).ready(function () {
+      new QRCode(document.getElementById("qrcode"), $('#deliveryCode')[0].innerHTML);
+    });
+  }, 100);
+
+</script>

@@ -13,6 +13,10 @@ const DeliverySchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  deliveryCode: {
+    type: String,
+    required: true,
+  },
   startLocation: {
     type: String,
     required: true,

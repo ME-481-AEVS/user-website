@@ -21,7 +21,7 @@
 </style>
 <body>
 <div class="container text-center">
-    <h1 class="my-4">Scheduled Deliveries</h1>
+    <h1 id="header" class="my-4">Scheduled Deliveries</h1>
     <table class="table table-striped">
         <thead class="thead-dark">
         <tr>
@@ -66,11 +66,18 @@
 <%- include('components/footer') %>
 
 <script>
+  // get the delivery code from the url
+  if (window.location.search.includes('order')) {
+    $(document).ready(function () {
+      $('#qrCodeModal').modal('show');
+      $('#deliveryCode').html(window.location.search.slice(-6));
+    });
+  }
+
   // get the delivery id and add it to the form
   $(document).ready(function () {
-      $('#qrCodeModal').modal('show');
     $('#cancelModal').on('show.bs.modal', function (e) {
-      $(this).find('#cancelId').val($(e.relatedTarget).data('id'));
+      $('#cancelId').val($(e.relatedTarget).data('id'));
     });
   });
 </script>

@@ -23,7 +23,12 @@ router.get('/new', ensureAuthenticated, (req, res) => {
 router.post('/new', ensureAuthenticated, (req, res) => {
   const delivery = new Delivery();
   const date = `${req.body.dateTimePicker_value}000`;
+  let code = Math.floor(Math.random() * 1000000).toString();
+  if (code.length < 6) {
+    code = `0${code}`;
+  }
   delivery.status = 1;
+  delivery.deliveryCode = code;
   delivery.startLocation = req.body.deliveryPickup;
   delivery.endLocation = req.body.deliveryDestination;
   delivery.startTime = new Date(parseInt(date, 10) + 36000000);
@@ -36,7 +41,7 @@ router.post('/new', ensureAuthenticated, (req, res) => {
     delivery.save();
     console.log('Delivery scheduled.');
     req.flash('success', 'Delivery scheduled!');
-    res.redirect('/delivery/scheduled');
+    res.redirect(`/delivery/scheduled?order=${code}`);
   } catch (err) {
     req.flash('error', 'Internal server error - please try again in a few moments.');
     res.redirect('/delivery/new');
@@ -107,6 +112,7 @@ router.get('/scheduled', ensureAuthenticated, (req, res) => {
         title: ' | View Scheduled Deliveries',
         profileImgUrl: req.user.displayPhoto,
         deliveries: deliveries.sort((a,b) => a.startTime - b.startTime),
+        code: req.query.order,
       });
     })
     .catch(err => {
