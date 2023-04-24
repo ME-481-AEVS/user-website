@@ -4,6 +4,15 @@
 <%- messages('components/messages', locals) %>
 
 <style>
+  .btn-light {
+    border-radius: 0;
+    width: 300px;
+    height: 50px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .content-wrap {
     width: 60%;
     position: relative;
@@ -73,6 +82,7 @@
 
 <body>
     <div class="container text-center mt-4">
+        Next delivery:
         <%
         /* 1: scheduled
            2: waiting at pickup
@@ -105,13 +115,27 @@
         </div>
 
         <% } else { %>
-            <p>No upcoming deliveries</p>
+            No upcoming deliveries
         <% } %>
         <br>
         <br>
-        <a href="/delivery/new" type="button" class="btn btn-light py-2 px-4 border border-1">Schedule a New Delivery</a><br>
-        <a href="/delivery/scheduled" type="button" class="btn btn-light py-2 px-4 border border-1">View Scheduled Deliveries</a><br>
-        <a href="/delivery/history" type="button" class="btn btn-light py-2 px-4 border border-1">View Delivery History</a>
+        <div class="col d-flex justify-content-center">
+            <div class="row">
+                <div class="col">
+                    <div class="row my-2">
+                        <a href="/delivery/scheduled" type="button" class="btn btn-light border border-1">View Scheduled Deliveries</a>
+                    </div>
+                    <div class="row my-2">
+                        <a href="/delivery/new" type="button" class="btn btn-light border border-1">Schedule a New Delivery</a>
+                    </div>
+                    <div class="row my-2">
+                        <a href="/delivery/history" type="button" class="btn btn-light border border-1">View Delivery History</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 <%- include('components/footer') %>
 </body>

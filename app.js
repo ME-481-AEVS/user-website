@@ -23,7 +23,8 @@ app.use(express.static(`${__dirname}/public`)); // define public folder
 
 app.use('/scripts/bootstrap', express.static(`${__dirname}/node_modules/bootstrap/dist/`));
 app.use('/scripts/bootstrap-icons', express.static(`${__dirname}/node_modules/bootstrap-icons/font/`));
-app.use('/scripts/date-time', express.static(`${__dirname}/date-time-new/dist/`));
+app.use('/scripts/date-time', express.static(`${__dirname}/libs/date-time-custom/dist/`));
+app.use('/scripts/qrcode', express.static(`${__dirname}/libs/qrcode/`));
 app.use('/scripts/jquery', express.static(`${__dirname}/node_modules/jquery/dist/`));
 
 app.set('view engine', 'ejs'); // set view engine to ejs
