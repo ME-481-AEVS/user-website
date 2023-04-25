@@ -8,6 +8,8 @@
     color: #0780b9;
     background-color: transparent;
     border: #000000;
+    text-decoration: none;
+    font-weight: 500;
   }
 
   .edit:hover {
@@ -56,8 +58,8 @@
                     </span>
                 </td>
                 <td>
-                    <a type="button" data-bs-toggle="modal" data-code="<%= delivery.deliveryCode %>" data-bs-target="#qrCodeModal" class="ms-2 cancel">
-                        <%= delivery.deliveryCode %>
+                    <a type="button" data-bs-toggle="modal" data-code="<%= delivery.deliveryCode %>" data-bs-target="#qrCodeModal" class="ms-2 edit">
+                        View
                     </a>
                 </td>
             </tr>

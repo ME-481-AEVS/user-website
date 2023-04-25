@@ -23,17 +23,17 @@
             <div class="row">
                 <div class="col">
                     <div class="row my-2">
-                        <form action="http://168.105.255.185:5000/control" method="post" target="_blank">
+                        <form id="openForm" action="http://168.105.255.185:5000/control" method="post">
                             <input type="hidden" name="command" value="open" />
-                            <input type="hidden" name="user" value="<%= displayName %>" />
-                            <button onclick="window.location.href = '/robot/controls';" type="submit" class="btn btn-light border border-1">Open Door</button>
+                            <input type="hidden" name="user" value="<%= name %>" />
+                            <button type="submit" class="btn btn-light border border-1">Open Door</button>
                         </form>
                     </div>
                     <div class="row my-2">
-                        <form action="http://168.105.255.185:5000/control" method="post" target="_blank">
+                        <form id="closeForm" action="http://168.105.255.185:5000/control" method="post">
                             <input type="hidden" name="command" value="close" />
-                            <input type="hidden" name="user" value="<%= displayName %>" />
-                            <button onclick="window.location.href = '/robot/controls';" type="submit" class="btn btn-light border border-1">Close Door</button>
+                            <input type="hidden" name="user" value="<%= name  %>" />
+                            <button type="submit" class="btn btn-light border border-1">Close Door</button>
                         </form>
                     </div>
                 </div>
@@ -41,4 +41,36 @@
         </div>
     </div>
 <%- include('components/footer') %>
+<script>
+$('#openForm').submit(function( event ) {
+  event.preventDefault();
+  const form = $(this);
+  const url = form.attr('action');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(), // serializes the form's elements.
+    success: function(data)
+    {
+      alert(data); // show response 
+      window.location.href = '/robot/controls';
+    }
+  }); 
+});
+$('#closeForm').submit(function( event ) {
+  event.preventDefault();
+  const form = $(this);
+  const url = form.attr('action');
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: form.serialize(), // serializes the form's elements.
+    success: function(data)
+    {
+      alert(data); // show response 
+      window.location.href = '/robot/controls';
+    }
+  }); 
+});
+</script>
 </body>
