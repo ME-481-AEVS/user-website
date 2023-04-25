@@ -1,0 +1,44 @@
+<%- include('components/head') %>
+<%- include('components/navbar') %>
+<%- include('../util/helpers') %>
+<%- messages('components/messages', locals) %>
+
+<style>
+  .btn-light {
+    border-radius: 0;
+    width: 300px;
+    height: 50px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+
+<body>
+    <div class="container text-center mt-4">
+        <h1>Controls</h1>
+        <br>
+        <div class="col d-flex justify-content-center">
+            <div class="row">
+                <div class="col">
+                    <div class="row my-2">
+                        <form action="http://168.105.255.185:5000/control" method="post" target="_blank">
+                            <input type="hidden" name="command" value="open" />
+                            <input type="hidden" name="user" value="<%= displayName %>" />
+                            <button onclick="window.location.href = '/robot/controls';" type="submit" class="btn btn-light border border-1">Open Door</button>
+                        </form>
+                    </div>
+                    <div class="row my-2">
+                        <form action="http://168.105.255.185:5000/control" method="post" target="_blank">
+                            <input type="hidden" name="command" value="close" />
+                            <input type="hidden" name="user" value="<%= displayName %>" />
+                            <button onclick="window.location.href = '/robot/controls';" type="submit" class="btn btn-light border border-1">Close Door</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('components/footer') %>
+</body>

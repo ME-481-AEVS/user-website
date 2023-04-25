@@ -3,6 +3,22 @@ const Robot = require('../models/robot');
 
 const router = express.Router();
 
+// access control
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return res.redirect('/');
+}
+
+router.get('/controls', ensureAuthenticated, (req, res) => {
+  res.render('controls',{
+    title: ' | User Controls',
+    profileImgUrl: req.user.displayPhoto,
+    name: req.user.displayName,
+  });
+});
+
 // request new delivery
 router.get('/aev1', (req, res) => {
   Robot.findOne({ name: 'aev1' })
