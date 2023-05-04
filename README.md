@@ -1,8 +1,9 @@
 # AEVS User Website
 This is a web application that allows users to schedule AEVS deliveries and monitor delivery status.
 
+Live website at: [uhm-aevs.online](http://uhm-aevs.online/)
 
-To view a local copy of this application:
+To create a local copy of the application:
 
 1) Download and install [Node.js](https://nodejs.org/en) and [MongoDB](https://www.mongodb.com/).
 2) Initialize a new database in MongoDB:
