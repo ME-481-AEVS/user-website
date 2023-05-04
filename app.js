@@ -1,3 +1,5 @@
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
@@ -8,7 +10,7 @@ const config = require('./config/database');
 
 require('./controllers/googleAuth')(passport);
 
-const port = process.env.PORT || 3000;
+// const port = process.env.PORT || 3000;
 
 mongoose.connect(config.database);
 const db = mongoose.connection;
@@ -17,6 +19,12 @@ db.once('open', () => console.log('Connected to MongoDB.')); // connect to db
 db.on('error', (err) => console.log(err)); // check for db errors
 
 const app = express(); // init app
+
+const options = {
+  cert: fs.readFileSync('/etc/letsencrypt/live/uhm-aevs.online/fullchain.pem'),
+  key: fs.readFileSync('/etc/letsencrypt/live/uhm-aevs.online/privkey.pem')
+};
+
 app.use(express.static(`${__dirname}/views`)); // load views
 app.use(express.static(`${__dirname}/views/components`)); // load views
 app.use(express.static(`${__dirname}/public`)); // define public folder
@@ -103,4 +111,6 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-app.listen(port, () => console.log(`Server started on port ${port}.`));
+// app.listen(port, () => console.log(`Server started on port ${port}.`));
+https.createServer(options, app).listen(443);
+
