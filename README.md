@@ -1,7 +1,7 @@
 # AEVS User Website
 This is a web application that allows users to schedule AEVS deliveries and monitor delivery status.
 
-Live website at: [uhm-aevs.online](http://uhm-aevs.online/)
+Live website at: [uhm-aevs.online](https://uhm-aevs.online/)
 
 To create a local copy of the application:
 
