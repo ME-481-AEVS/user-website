@@ -23,14 +23,14 @@
             <div class="row">
                 <div class="col">
                     <div class="row my-2">
-                        <form id="openForm" action="http://168.105.255.185:5000/control" method="post">
+                        <form id="openForm" action="https://168.105.255.185/control" method="post">
                             <input type="hidden" name="command" value="open" />
                             <input type="hidden" name="user" value="<%= name %>" />
                             <button type="submit" class="btn btn-light border border-1">Open Door</button>
                         </form>
                     </div>
                     <div class="row my-2">
-                        <form id="closeForm" action="http://168.105.255.185:5000/control" method="post">
+                        <form id="closeForm" action="https://168.105.255.185/control" method="post">
                             <input type="hidden" name="command" value="close" />
                             <input type="hidden" name="user" value="<%= name  %>" />
                             <button type="submit" class="btn btn-light border border-1">Close Door</button>
@@ -52,7 +52,7 @@ $('#openForm').submit(function( event ) {
     data: form.serialize(), // serializes the form's elements.
     success: function(data)
     {
-      alert(data); // show response 
+      console.log(data);
       window.location.href = '/robot/controls';
     }
   }); 
@@ -67,7 +67,7 @@ $('#closeForm').submit(function( event ) {
     data: form.serialize(), // serializes the form's elements.
     success: function(data)
     {
-      alert(data); // show response 
+      console.log(data);
       window.location.href = '/robot/controls';
     }
   }); 
