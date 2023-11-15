@@ -26,6 +26,8 @@ router.get('/auth_failed', (req, res) => {
   res.render('index', { title: null });
 });
 
+
+
 // user homepage
 router.get('/home', ensureAuthenticated, (req, res) => {
   Delivery.find({ user_id: req.user.id })

@@ -1,18 +1,19 @@
-const fs = require('fs');
-const https = require('https');
+// const fs = require('fs');
+// const https = require('https');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require('connect-flash');
 const bodyParser = require('body-parser');
-const config = require('./config/database');
+const dotenv = require('dotenv');
 
 require('./controllers/googleAuth')(passport);
 
-// const port = process.env.PORT || 3000;
+dotenv.config();
+const port = process.env.PORT || 3000;
+mongoose.connect(process.env.MONGO_URI);
 
-mongoose.connect(config.database);
 const db = mongoose.connection;
 
 db.once('open', () => console.log('Connected to MongoDB.')); // connect to db
@@ -20,10 +21,14 @@ db.on('error', (err) => console.log(err)); // check for db errors
 
 const app = express(); // init app
 
+/*
+https stuff
+
 const options = {
   cert: fs.readFileSync('/etc/letsencrypt/live/uhm-aevs.online/fullchain.pem'),
   key: fs.readFileSync('/etc/letsencrypt/live/uhm-aevs.online/privkey.pem')
 };
+ */
 
 app.use(express.static(`${__dirname}/views`)); // load views
 app.use(express.static(`${__dirname}/views/components`)); // load views
@@ -50,7 +55,7 @@ app.use(session({
 }));
 
 // passport config
-require('./controllers/googleAuth')(passport);
+// require('./controllers/googleAuth')(passport);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -111,6 +116,6 @@ app.use((err, req, res, next) => {
 });
 
 // start server
-// http  app.listen(port, () => console.log(`Server started on port ${port}.`));
-https.createServer(options, app).listen(443);
+app.listen(port, () => console.log(`Server started on port ${port}.`));
+// https.createServer(options, app).listen(443);
 
