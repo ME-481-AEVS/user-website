@@ -1,0 +1,18 @@
+body {
+  font-family: Roboto, monospace;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+.green-background {
+  color: white;
+  background-color: #335c26;
+  --bs-link-color: #c6c7bf;
+  --bs-link-hover-color: #e9eae1;
+}
+
+.no-gutter {
+  --bs-gutter-x: 0;
+}

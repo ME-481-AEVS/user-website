@@ -1,20 +1,29 @@
 <style>
   .fixed-bottom {
     height: 60px;
-    background-color: #1a1a1a;
+    background-color: #111;
     color: #e5e5e5;
   }
   .fixed-bottom a {
-    font-size: 20px;
-    --bs-link-color: #e5e5e5;
-    --bs-link-hover-color: #b6b6b6;
+      font-size: 20px;
+      color: #fcf2e6;
+      transition: 0.2s;
+  }
+  .fixed-bottom a:hover {
+      color: #d0c6bc;
+  }
+
+  @media screen and (max-width: 450px) {
+    .fixed-bottom {
+      font-size: 0.6rem;
+    }
   }
 </style>
 <div class="fixed-bottom small navbar navbar-expand d-flex align-items-center">
     <div class="container">
         <div>
             <img src="/images/logo_uhm_smol.png" class="rounded-circle" width="40px" alt="Profile Picture">
-            <span class="ms-2">University of Hawaiʻi at Mānoa</span>
+            <span class="ms-2">University of Hawaii at Mānoa</span>
         </div>
         <div id="icons">
             <a href="https://uhautobots.wixsite.com/uh-manoa-autobots" target="_blank"><i class="bi bi-question-circle-fill mx-1"></i></a>
