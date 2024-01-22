@@ -14,6 +14,7 @@ const UserSchema = mongoose.Schema({
   },
   orders: {
     type: String,
+    // todo delete?
   },
   dateCreated: {
     type: Date,
